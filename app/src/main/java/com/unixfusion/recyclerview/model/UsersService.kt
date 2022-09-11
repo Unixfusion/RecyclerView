@@ -8,7 +8,9 @@ typealias UserListener = (users: List<User>) -> Unit
 class UsersService {
 
     private var users: MutableList<User> = mutableListOf<User>()
+
     private val listeners: MutableSet<UserListener> = mutableSetOf<UserListener>()
+
     init {
         val faker = Faker.instance()
         IMAGES.shuffle()
@@ -42,12 +44,12 @@ class UsersService {
         }
 
     fun addListener(listener: UserListener) {
-        listeners.add { listener }
+        listeners.add(listener)
         listener.invoke(users)
     }
 
     fun removeListener(listener: UserListener) {
-        listeners.remove { listener }
+        listeners.remove(listener)
     }
 
     private fun notifyChanges() {

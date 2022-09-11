@@ -11,6 +11,7 @@ import com.unixfusion.recyclerview.databinding.ItemUserBinding
 import com.unixfusion.recyclerview.model.User
 
 interface UserActionListener {
+
     fun onUserMove(user: User, moveBy: Int)
 
     fun onUserDelete(user: User)
@@ -21,6 +22,7 @@ interface UserActionListener {
 class UsersAdapter(
     private val actionListener: UserActionListener
 ): RecyclerView.Adapter<UsersAdapter.UsersViewHolder>(), View.OnClickListener {
+
     var users: List<User> = emptyList()
     set(newValue) {
         field = newValue
@@ -66,6 +68,9 @@ class UsersAdapter(
                     .placeholder(R.drawable.ic_person_avatar)
                     .error(R.drawable.ic_person_avatar)
                     .into(imageAvatar)
+            } else {
+                Glide.with(imageAvatar.context).clear(imageAvatar)
+                imageAvatar.setImageResource(R.drawable.ic_person_avatar)
             }
         }
     }
